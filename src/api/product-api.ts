@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from "axios";
 
 import { API_PATHS } from '@/constants/api-paths';
 import { Product } from '@/models/product';
@@ -24,6 +24,16 @@ const fetchProducts = async (): Promise<Product[]> => {
 			console.error(e);
 			// << !!! mocks if any error !!!
 			return productList;
+		});
+};
+
+const fetchCSVUrl = async (): Promise<string> => {
+	return axios
+		.get(`${API_PATHS.bff}/import`)
+		.then((res: AxiosResponse<{ signedUrl: string }>) => res.data.signedUrl)
+		.catch(e => {
+			console.error(e);
+			return '';
 		});
 };
 
