@@ -27,6 +27,19 @@ const fetchProducts = async (): Promise<Product[]> => {
 		});
 };
 
+const importProducts = async (): Promise<void> => {
+	return axios
+		.get(`${API_PATHS.bff}/import`, {
+			headers: {
+				Authorization: `Basic ${localStorage.getItem('authorization_token')}`,
+			},
+		})
+		.then(res => res.data)
+		.catch(e => {
+			console.error(e);
+		});
+};
+
 const fetchProductById = async (id: string) => {
 	console.info(`GET fetchProductById: ${id}`);
 
